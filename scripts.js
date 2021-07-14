@@ -56,7 +56,5 @@ function logconsole(e) {
 	console.log(e)
 }
 
-// addBookToLibrary()
-
 const addButton = document.querySelector('#addBook')
 addButton.addEventListener('click', createInputFields)
