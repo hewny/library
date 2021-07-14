@@ -13,13 +13,11 @@ function addBookToLibrary(e) {
 	myLibrary.push(e)
 }
 
-const container = document.querySelector(".container");
-const inputField = document.querySelector(".inputField");
 
 function updateBooks() {
 	// clear previous entries
 	container.querySelectorAll('div').forEach(div => div.remove())
-
+	
 	// reload books
 	for (let i=0; i < myLibrary.length; i++) {
 		newDiv = document.createElement("div");
@@ -30,20 +28,39 @@ function updateBooks() {
 	}
 }
 
-function createInputFields () {
-	titleField = document.createElement('input')
-	titleField.id = 'inputTitle'
-	titleFieldLable = document.createElement('label')
-	titleFieldLable.for = 'inputTitle'
-	titleFieldLable.textContent = "Title"
-	inputField.appendChild(titleFieldLable)
-	inputField.appendChild(titleField)
-
-	submitButton = document.createElement('button')
-	submitButton.textContent = "Click to add the book"
-	submitButton.addEventListener('click', getValues)
-	inputField.appendChild(submitButton)
-}
+// function createInputFields () {
+// 	// create title input field
+// 	titleField = document.createElement('input')
+// 	titleField.id = 'inputTitle'
+// 	titleFieldLable = document.createElement('label')
+// 	titleFieldLable.for = 'inputTitle'
+// 	titleFieldLable.textContent = "Title"
+// 	modalContent.appendChild(titleFieldLable)
+// 	modalContent.appendChild(titleField)
+// 	// create author input field
+// 	titleField = document.createElement('input')
+// 	titleField.id = 'inputAuthor'
+// 	titleFieldLable = document.createElement('label')
+// 	titleFieldLable.for = 'inputAuthor'
+// 	titleFieldLable.textContent = "Author"
+// 	modalContent.appendChild(titleFieldLable)
+// 	modalContent.appendChild(titleField)
+	
+// 	// create pages input field
+// 	titleField = document.createElement('input')
+// 	titleField.id = 'inputPages'
+// 	titleFieldLable = document.createElement('label')
+// 	titleFieldLable.for = 'inputPages'
+// 	titleFieldLable.textContent = "Pages"
+// 	modalContent.appendChild(titleFieldLable)
+// 	modalContent.appendChild(titleField)
+	
+// 	// create submit button
+// 	submitButton = document.createElement('button')
+// 	submitButton.textContent = "Click to add the book"
+// 	submitButton.addEventListener('click', getValues)
+// 	modalContent.appendChild(submitButton)
+// }
 
 function getValues() {
 	newBook = new Book()
@@ -56,5 +73,25 @@ function logconsole(e) {
 	console.log(e)
 }
 
-const addButton = document.querySelector('#addBook')
-addButton.addEventListener('click', createInputFields)
+const container = document.querySelector(".container");
+const modalOverlay = document.querySelector('.modal-overlay');
+const modalContainer = document.querySelector('.modal-container');
+const modalContent = document.querySelector('.modal-content');
+
+const addButton = document.querySelector('.add-button');
+const addExampleButton = document.querySelector('.add-example-button');
+const addBookButton = document.querySelector('.add-book-button');
+const closeButton = document.querySelector('.close-button');
+
+function showModal() {
+	modalOverlay.classList.remove('closed')
+	modalContainer.classList.remove('closed')
+}
+
+function hideModal() {
+	modalOverlay.classList.add('closed')
+	modalContainer.classList.add('closed')
+}
+
+addButton.addEventListener('click', showModal)
+closeButton.addEventListener('click',hideModal)

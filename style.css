@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
-    background-color: lightgrey;
+    background-color: rgb(211, 211, 211);
     font-family: 'Roboto', sans-serif;
 }
 
@@ -17,12 +17,123 @@ h3 {
     font-size: 15px;
 }
 
+button {
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 20px;
+    margin: 5px 10px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 5px auto;
+}
+
+.add-button {
+    background: rgba(144, 238, 144, 0.8);
+}
+.add-button:hover {
+    background: rgba(144, 238, 144, 1);
+}
+.add-example-button {
+    background: rgba(135, 206, 250, 0.8);
+}
+.add-example-button:hover {
+    background: rgba(135, 206, 250, 1);
+}
+.add-book-button {
+    background-color: rgba(107, 238, 107,0.8);
+}
+.add-book-button:hover {
+    background-color: rgba(107, 238, 107,1);
+}
+
+.modal-overlay {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.closed {
+    display: none;
+}
+.modal-container {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    max-width: 100%;
+    height: 400px;
+    max-height: 100%;
+    z-index: 2;
+}
+
+.modal-container .close-button {
+    position: absolute;
+    z-index: 2;
+    top: 5px;
+    right: -25px;
+    border: 0;
+    background: rgba(105, 105, 105, 0.8);
+    color:white;
+}
+.modal-container .close-button:hover {
+    background: rgba(105, 105, 105, 1);
+}
+.modal-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 15px;
+    align-content: center;
+    background-color: rgb(169, 197, 169);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.modal-content input{
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 90%;
+}
+
+.modal-content input[type="number"] {
+    width: 20%;
+}
+
+.modal-content input[type="radio"] {
+    width: 5%;
+}
+.modal-content label, p {
+    font-size: 20px;
+    margin: 5px;
+}
+
+.modal-content-read {
+    display: flex;
+    align-items: center;
+}
+
 .card-container {
     display: flex;
     grid-template-columns: repeat(4, 250px);
     max-width: 75%;
     justify-content: center;
-    align-content: center;
     flex-flow: wrap;
     background-color: blanchedalmond;
     margin: 0 auto;
@@ -34,10 +145,10 @@ h3 {
     text-align: center;
     flex-direction: column;
     justify-content: center;
-    background-color: lightsalmon;
+    background-color: rgb(255, 160, 122);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.2s;
-    border: 1px solid #bacdd8;
+    border: 1px solid rgb(186, 205, 216);
     border-radius: 15px;
     width: 200px;
     min-height: 300px;
@@ -58,3 +169,4 @@ h3 {
 .card h1, h2, h3 {
     margin: auto 0px;
 }
+
