@@ -10,6 +10,17 @@ function Book() {
 	}
 }
 
+Book.prototype.toggleRead = function() {
+	if (this.read === true) {
+		this.read = false
+		updateBooks()
+	}
+	else if (this.read === false) {
+		this.read = true
+		updateBooks()
+	}
+}
+
 function addBookToLibrary(e) {
 	myLibrary.push(e)
 	clearInput()
@@ -32,17 +43,6 @@ function removeBook(i) {
 	updateBooks()
 }
 
-function toggleRead(i) {
-	bookList = document.querySelectorAll('.card')
-	if (bookList[i].classList.contains('card-read')) {
-		bookList[i].classList.remove('card-read')
-	}
-	else {
-		myLibrary[i].read = true
-		bookList[i].classList.add('card-read')
-	}
-}
-
 function updateBooks() {
 	// clear previous entries
 	cardContainer.querySelectorAll('.card').forEach(div => div.remove())
@@ -61,7 +61,7 @@ function updateBooks() {
 		newReadButton.classList.add('card-read-toggle');
 		newReadButton.textContent = "Toggle Read";
 		newReadButton.addEventListener('click', function() {
-			toggleRead(i)
+			myLibrary[i].toggleRead()
 		}, false);
 		newImg = document.createElement('img');
 		newImg.src="book.png"
@@ -105,6 +105,42 @@ function evalRead() {
 	else return true
 }
 
+function evalModal() {
+	clearErrors()
+	if (inputTitle.value === "") {
+		modalContentError.textContent = "Title is required";
+		inputTitle.classList.add('red-border')
+	}
+	else if (inputAuthor.value === "") {
+		modalContentError.textContent = "Author is required";
+		inputAuthor.classList.add('red-border')
+	}
+	else if (inputPages.value === "") {
+		modalContentError.textContent = "Pages are required";
+		inputPages.classList.add('red-border')
+	}
+	else if (readNo.checked === false && readYes.checked === false) {
+		modalContentError.textContent = "You must select Yes or No to the question";
+		modalContentRead.classList.add('red-border')
+	}
+	else {
+		getValues()
+	}
+}
+
+function clearErrors() {
+	allInputs = document.querySelectorAll('input')
+	allInputs.forEach(item => {
+		if (item.classList.contains('red-border')) {
+			item.classList.remove('red-border')
+		}
+	})
+	if (modalContentRead.classList.contains('red-border')) {
+		modalContentRead.classList.remove('red-border')
+	}
+	modalContentError.textContent = ""
+}
+
 function clearInput() {
 	inputTitle.value = ""
 	inputAuthor.value = ""
@@ -117,6 +153,8 @@ const container = document.querySelector(".container");
 const modalOverlay = document.querySelector('.modal-overlay');
 const modalContainer = document.querySelector('.modal-container');
 const modalContent = document.querySelector('.modal-content');
+const modalContentError = document.querySelector('.modal-content-error')
+const modalContentRead = document.querySelector('.modal-content-read')
 const cardContainer = document.querySelector('.card-container')
 
 const addButton = document.querySelector('.add-button');
@@ -142,5 +180,5 @@ function hideModal() {
 
 addButton.addEventListener('click', showModal)
 closeButton.addEventListener('click',hideModal)
-addBookButton.addEventListener('click',getValues)
+addBookButton.addEventListener('click',evalModal)
 addExampleButton.addEventListener('click',addExampleBook)

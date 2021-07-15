@@ -16,19 +16,20 @@
 		<button class="close-button">Close</button>
 		<div class="modal-content">
 			<label for="inputTitle">Title*</label>
-			<input id="inputTitle">
+			<input id="inputTitle" maxlength="30">
 			<label for="inputAuthor">Author*</label>
-			<input id="inputAuthor">
+			<input id="inputAuthor" maxlength="30">
 			<label for="inputPages">Pages*</label>
 			<input type="number" id="inputPages" min="1" max="9999">
 			<p>Have you read the book?*</p>
 			<div class="modal-content-read">
-				<label for="readNo">No</label>
-				<input type="radio" id="readNo" name="readTheBook" value="no">
 				<label for="readYes">Yes</label>
 				<input type="radio" id="readYes" name="readTheBook" value="yes">
+				<label for="readNo">No</label>
+				<input type="radio" id="readNo" name="readTheBook" value="no">
 			</div>
 			<button class="add-book-button">Submit</button>
+			<p class="modal-content-error"></p>
 		</div>
 	</div>
 
@@ -36,14 +37,6 @@
 		<div class="card">
 			<img src="plus.png">
 			<h1>Click the button above to add a new book</h1>
-		</div>
-		<div class="card">
-			<button class="card-delete-button">X</button>
-			<button class="card-read-toggle">Toggle Read</button>
-			<img src="book.png">
-			<h1>Example Title</h1>
-			<h2>Example Author</h2>
-			<h3>52 pages</h3>
 		</div>
 	</div>
 </body>
