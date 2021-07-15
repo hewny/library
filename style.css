@@ -13,7 +13,7 @@ h2 {
     font-size: 20px;
 }
 
-h3 {
+h3, h4 {
     font-size: 15px;
 }
 
@@ -142,6 +142,7 @@ button {
 
 .card {
     display: flex;
+    position: relative;
     text-align: center;
     flex-direction: column;
     justify-content: center;
@@ -157,8 +158,45 @@ button {
     padding: 20px;
 }
 
+.card .card-delete-button {
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 20px;
+    margin: 5px;
+    color: white;
+    background-color: red;
+    z-index: 3;
+}
+
+.card .card-read-toggle {
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 40px;
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 20px;
+    margin: 5px;
+    color: white;
+    background-color: green;
+    z-index: 4;
+}
+
 .card:hover {
     box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card:hover .card-delete-button {
+    display: block;
+}
+.card:hover .card-read-toggle {
+    display: block;
 }
 
 .card img {
@@ -166,7 +204,10 @@ button {
     max-width: 175px;
 }
 
-.card h1, h2, h3 {
+.card h1, h2, h3, h4 {
     margin: auto 0px;
 }
 
+.card-read {
+    background-color: lightgreen;
+}

@@ -6,27 +6,22 @@
 </head>
 
 <body>
-	<!-- <button onclick="updateBooks()">Update Books</button>
-	<div class="container"></div>
-	<button id="addBook">Add Book UI</button>
-	<div class="inputField"></div> -->
-
 	<div class="top-bar">
 		<button class="add-button">Add New Book</button>
-		<button class="add-example-button">Add Example Books</button>
+		<button class="add-example-button">Add Example Book</button>
 	</div>
 	
 	<div class="modal-overlay closed"></div>
 	<div class="modal-container closed">
 		<button class="close-button">Close</button>
 		<div class="modal-content">
-			<label for="inputTitle">Title</label>
+			<label for="inputTitle">Title*</label>
 			<input id="inputTitle">
-			<label for="inputAuthor">Author</label>
+			<label for="inputAuthor">Author*</label>
 			<input id="inputAuthor">
-			<label for="inputPages">Pages</label>
+			<label for="inputPages">Pages*</label>
 			<input type="number" id="inputPages" min="1" max="9999">
-			<p>Have you read the book?</p>
+			<p>Have you read the book?*</p>
 			<div class="modal-content-read">
 				<label for="readNo">No</label>
 				<input type="radio" id="readNo" name="readTheBook" value="no">
@@ -39,52 +34,16 @@
 
 	<div class="card-container">
 		<div class="card">
-			<img src="book.png">
-			<h1>Book Title SUPER LONG TITLEEEEEE</h1>
-			<h2>Book AuthorBook AuthorBookkkkkkk</h2>
-			<h3>Number of Pages</h3>
+			<img src="plus.png">
+			<h1>Click the button above to add a new book</h1>
 		</div>
 		<div class="card">
+			<button class="card-delete-button">X</button>
+			<button class="card-read-toggle">Toggle Read</button>
 			<img src="book.png">
-			<h1>Book Title</h1>
-			<h2>Book Author</h2>
-			<h3>Number of Pages</h3>
-		</div>
-		<div class="card">
-			<img src="book.png">
-			<h1>Book Title</h1>
-			<h2>Book Author</h2>
-			<h3>Number of Pages</h3>
-		</div>
-		<div class="card">
-			<img src="book.png">
-			<h1>Book Title</h1>
-			<h2>Book Author</h2>
-			<h3>Number of Pages</h3>
-		</div>
-		<div class="card">
-			<img src="book.png">
-			<h1>Book Title</h1>
-			<h2>Book Author</h2>
-			<h3>Number of Pages</h3>
-		</div>
-		<div class="card">
-			<img src="book.png">
-			<h1>Book Title</h1>
-			<h2>Book Author</h2>
-			<h3>Number of Pages</h3>
-		</div>
-		<div class="card">
-			<img src="book.png">
-			<h1>Book Title</h1>
-			<h2>Book Author</h2>
-			<h3>Number of Pages</h3>
-		</div>
-		<div class="card">
-			<img src="book.png">
-			<h1>Book Title</h1>
-			<h2>Book Author</h2>
-			<h3>Number of Pages</h3>
+			<h1>Example Title</h1>
+			<h2>Example Author</h2>
+			<h3>52 pages</h3>
 		</div>
 	</div>
 </body>

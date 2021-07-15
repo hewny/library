@@ -4,6 +4,7 @@ function Book() {
 	this.title = '';
 	this.author = '';
 	this.pages = '';
+	this.read = null;
 	this.info = function () {
 		return `${this.title} by ${this.author}, ${this.pages} pages`
 	}
@@ -16,6 +17,31 @@ function addBookToLibrary(e) {
 	updateBooks()
 }
 
+function addExampleBook() {
+	let exampleBook = new Book()
+	exampleBook.title = "Example Title"
+	exampleBook.author = "Example Author"
+	exampleBook.pages = Math.floor(Math.random()*100)
+	exampleBook.read = false
+	exampleBook.bookValue = myLibrary.length
+	addBookToLibrary(exampleBook)
+}
+
+function removeBook(i) {
+	myLibrary.splice(i,1)
+	updateBooks()
+}
+
+function toggleRead(i) {
+	bookList = document.querySelectorAll('.card')
+	if (bookList[i].classList.contains('card-read')) {
+		bookList[i].classList.remove('card-read')
+	}
+	else {
+		myLibrary[i].read = true
+		bookList[i].classList.add('card-read')
+	}
+}
 
 function updateBooks() {
 	// clear previous entries
@@ -23,8 +49,20 @@ function updateBooks() {
 	
 	// reload books
 	for (let i=0; i < myLibrary.length; i++) {
-		newDiv = document.createElement("div");
+		newDiv = document.createElement('div');
 		newDiv.className = "card";
+		newCloseButton = document.createElement('button');
+		newCloseButton.classList.add('card-delete-button');
+		newCloseButton.textContent = "X";
+		newCloseButton.addEventListener('click', function() {
+			removeBook(i)
+		}, false);
+		newReadButton = document.createElement('button');
+		newReadButton.classList.add('card-read-toggle');
+		newReadButton.textContent = "Toggle Read";
+		newReadButton.addEventListener('click', function() {
+			toggleRead(i)
+		}, false);
 		newImg = document.createElement('img');
 		newImg.src="book.png"
 		newH1 = document.createElement('h1');
@@ -33,7 +71,13 @@ function updateBooks() {
 		newH2.textContent = myLibrary[i]["author"];
 		newH3 = document.createElement('h3');
 		newH3.textContent = myLibrary[i]["pages"]+" pages";
+
+		if (myLibrary[i].read === true && myLibrary[i].read != null) {
+			newDiv.classList.add('card-read')
+		}
 		
+		newDiv.appendChild(newCloseButton);
+		newDiv.appendChild(newReadButton);
 		newDiv.appendChild(newImg);
 		newDiv.appendChild(newH1);
 		newDiv.appendChild(newH2);
@@ -42,53 +86,19 @@ function updateBooks() {
 	}
 }
 
-// function createInputFields () {
-// 	// create title input field
-// 	titleField = document.createElement('input')
-// 	titleField.id = 'inputTitle'
-// 	titleFieldLable = document.createElement('label')
-// 	titleFieldLable.for = 'inputTitle'
-// 	titleFieldLable.textContent = "Title"
-// 	modalContent.appendChild(titleFieldLable)
-// 	modalContent.appendChild(titleField)
-// 	// create author input field
-// 	titleField = document.createElement('input')
-// 	titleField.id = 'inputAuthor'
-// 	titleFieldLable = document.createElement('label')
-// 	titleFieldLable.for = 'inputAuthor'
-// 	titleFieldLable.textContent = "Author"
-// 	modalContent.appendChild(titleFieldLable)
-// 	modalContent.appendChild(titleField)
-	
-// 	// create pages input field
-// 	titleField = document.createElement('input')
-// 	titleField.id = 'inputPages'
-// 	titleFieldLable = document.createElement('label')
-// 	titleFieldLable.for = 'inputPages'
-// 	titleFieldLable.textContent = "Pages"
-// 	modalContent.appendChild(titleFieldLable)
-// 	modalContent.appendChild(titleField)
-	
-// 	// create submit button
-// 	submitButton = document.createElement('button')
-// 	submitButton.textContent = "Click to add the book"
-// 	submitButton.addEventListener('click', getValues)
-// 	modalContent.appendChild(submitButton)
-// }
-
 function getValues() {
 	let newBook = new Book()
 	newBook.title = inputTitle.value
 	newBook.author = inputAuthor.value
 	newBook.pages = inputPages.value
+	newBook.read = evalRead()
 	addBookToLibrary(newBook)
 }
 
-function logconsole(e) {
-	console.log(e)
-}
-
 function evalRead() {
+	if (readNo.checked === false && readYes.checked === false) {
+		return false
+	}
 	if (readNo.checked) {
 		return false
 	}
@@ -133,3 +143,4 @@ function hideModal() {
 addButton.addEventListener('click', showModal)
 closeButton.addEventListener('click',hideModal)
 addBookButton.addEventListener('click',getValues)
+addExampleButton.addEventListener('click',addExampleBook)
