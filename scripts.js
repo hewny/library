@@ -21,8 +21,8 @@ Book.prototype.toggleRead = function() {
 	}
 }
 
-function addBookToLibrary(e) {
-	myLibrary.push(e)
+function addBookToLibrary(i) {
+	myLibrary.push(i)
 	clearInput()
 	hideModal()
 	updateBooks()
@@ -117,6 +117,10 @@ function evalModal() {
 	}
 	else if (inputPages.value === "") {
 		modalContentError.textContent = "Pages are required";
+		inputPages.classList.add('red-border')
+	}
+	else if (inputPages.value > 9999) {
+		modalContentError.textContent = "Pages cannot be greater than 9999";
 		inputPages.classList.add('red-border')
 	}
 	else if (readNo.checked === false && readYes.checked === false) {
