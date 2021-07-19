@@ -1,3 +1,5 @@
+import { randomTitle, randomAuthor} from "./random.js";
+
 const container = document.querySelector(".container");
 const modalOverlay = document.querySelector('.modal-overlay');
 const modalContainer = document.querySelector('.modal-container');
@@ -64,9 +66,9 @@ function addBookToLibrary(i) {
 
 function addExampleBook() {
 	let exampleBook = new Book()
-	exampleBook.title = "Example Title"
-	exampleBook.author = "Example Author"
-	exampleBook.pages = Math.floor(Math.random()*100)
+	exampleBook.title = randomTitle()
+	exampleBook.author = randomAuthor()
+	exampleBook.pages = Math.floor(Math.random()*200)
 	exampleBook.read = false
 	exampleBook.bookValue = myLibrary.length
 	addBookToLibrary(exampleBook)
@@ -95,27 +97,27 @@ function updateBooks() {
 	// reload books
 	if (myLibrary.length !== 0) {
 		for (let i=0; i < myLibrary.length; i++) {
-			newDiv = document.createElement('div');
+			let newDiv = document.createElement('div');
 			newDiv.className = "card";
-			newCloseButton = document.createElement('button');
+			let newCloseButton = document.createElement('button');
 			newCloseButton.classList.add('card-delete-button');
 			newCloseButton.textContent = "X";
 			newCloseButton.addEventListener('click', function() {
 				removeBook(i)
 			}, false);
-			newReadButton = document.createElement('button');
+			let newReadButton = document.createElement('button');
 			newReadButton.classList.add('card-read-toggle');
 			newReadButton.textContent = "Toggle Read";
 			newReadButton.addEventListener('click', function() {
 				myLibrary[i].toggleRead()
 			}, false);
-			newImg = document.createElement('img');
+			let newImg = document.createElement('img');
 			newImg.src="book.png"
-			newH1 = document.createElement('h1');
+			let newH1 = document.createElement('h1');
 			newH1.textContent = myLibrary[i]["title"];
-			newH2 = document.createElement('h2');
+			let newH2 = document.createElement('h2');
 			newH2.textContent = myLibrary[i]["author"];
-			newH3 = document.createElement('h3');
+			let newH3 = document.createElement('h3');
 			newH3.textContent = myLibrary[i]["pages"]+" pages";
 			
 			if (myLibrary[i].read === true && myLibrary[i].read != null) {
@@ -131,11 +133,11 @@ function updateBooks() {
 			cardContainer.appendChild(newDiv);
 		}
 	} else {
-		newDiv = document.createElement('div');
+		let newDiv = document.createElement('div');
 		newDiv.className = "card";
-		newImg = document.createElement('img');
+		let newImg = document.createElement('img');
 		newImg.src="plus.png"
-		newH1 = document.createElement('h1');
+		let newH1 = document.createElement('h1');
 		newH1.textContent = "Click the button above to add a new book";
 
 		newDiv.appendChild(newImg)
