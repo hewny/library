@@ -130,6 +130,17 @@ function updateBooks() {
 			newDiv.appendChild(newH3);
 			cardContainer.appendChild(newDiv);
 		}
+	} else {
+		newDiv = document.createElement('div');
+		newDiv.className = "card";
+		newImg = document.createElement('img');
+		newImg.src="plus.png"
+		newH1 = document.createElement('h1');
+		newH1.textContent = "Click the button above to add a new book";
+
+		newDiv.appendChild(newImg)
+		newDiv.appendChild(newH1)
+		cardContainer.appendChild(newDiv)
 	}
 }
 
