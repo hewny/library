@@ -1,3 +1,37 @@
+const container = document.querySelector(".container");
+const modalOverlay = document.querySelector('.modal-overlay');
+const modalContainer = document.querySelector('.modal-container');
+const modalContent = document.querySelector('.modal-content');
+const modalContentError = document.querySelector('.modal-content-error')
+const modalContentRead = document.querySelector('.modal-content-read')
+const cardContainer = document.querySelector('.card-container')
+
+const addButton = document.querySelector('.add-button');
+const addExampleButton = document.querySelector('.add-example-button');
+const addBookButton = document.querySelector('.add-book-button');
+const closeButton = document.querySelector('.close-button');
+
+const inputTitle = document.querySelector('#inputTitle');
+const inputAuthor = document.querySelector('#inputAuthor');
+const inputPages = document.querySelector('#inputPages');
+const readNo = document.querySelector('#readNo');
+const readYes = document.querySelector('#readYes');
+
+function showModal() {
+	modalOverlay.classList.remove('closed')
+	modalContainer.classList.remove('closed')
+}
+
+function hideModal() {
+	modalOverlay.classList.add('closed')
+	modalContainer.classList.add('closed')
+}
+
+addButton.addEventListener('click', showModal)
+closeButton.addEventListener('click',hideModal)
+addBookButton.addEventListener('click',evalModal)
+addExampleButton.addEventListener('click',addExampleBook)
+
 let myLibrary = [];
 
 function Book() {
@@ -43,46 +77,59 @@ function removeBook(i) {
 	updateBooks()
 }
 
+function updateLocalStorage () {
+	if (myLibrary.length === 0) {
+		localStorage.removeItem("myStoredLibrary")
+	} else {
+		localStorage.setItem("myStoredLibrary", JSON.stringify(myLibrary))
+	}
+}
+
 function updateBooks() {
 	// clear previous entries
-	cardContainer.querySelectorAll('.card').forEach(div => div.remove())
+	cardContainer.querySelectorAll('.card').forEach(div => div.remove());
+
+	// update localStorage
+	updateLocalStorage();
 	
 	// reload books
-	for (let i=0; i < myLibrary.length; i++) {
-		newDiv = document.createElement('div');
-		newDiv.className = "card";
-		newCloseButton = document.createElement('button');
-		newCloseButton.classList.add('card-delete-button');
-		newCloseButton.textContent = "X";
-		newCloseButton.addEventListener('click', function() {
-			removeBook(i)
-		}, false);
-		newReadButton = document.createElement('button');
-		newReadButton.classList.add('card-read-toggle');
-		newReadButton.textContent = "Toggle Read";
-		newReadButton.addEventListener('click', function() {
-			myLibrary[i].toggleRead()
-		}, false);
-		newImg = document.createElement('img');
-		newImg.src="book.png"
-		newH1 = document.createElement('h1');
-		newH1.textContent = myLibrary[i]["title"];
-		newH2 = document.createElement('h2');
-		newH2.textContent = myLibrary[i]["author"];
-		newH3 = document.createElement('h3');
-		newH3.textContent = myLibrary[i]["pages"]+" pages";
-
-		if (myLibrary[i].read === true && myLibrary[i].read != null) {
-			newDiv.classList.add('card-read')
+	if (myLibrary.length !== 0) {
+		for (let i=0; i < myLibrary.length; i++) {
+			newDiv = document.createElement('div');
+			newDiv.className = "card";
+			newCloseButton = document.createElement('button');
+			newCloseButton.classList.add('card-delete-button');
+			newCloseButton.textContent = "X";
+			newCloseButton.addEventListener('click', function() {
+				removeBook(i)
+			}, false);
+			newReadButton = document.createElement('button');
+			newReadButton.classList.add('card-read-toggle');
+			newReadButton.textContent = "Toggle Read";
+			newReadButton.addEventListener('click', function() {
+				myLibrary[i].toggleRead()
+			}, false);
+			newImg = document.createElement('img');
+			newImg.src="book.png"
+			newH1 = document.createElement('h1');
+			newH1.textContent = myLibrary[i]["title"];
+			newH2 = document.createElement('h2');
+			newH2.textContent = myLibrary[i]["author"];
+			newH3 = document.createElement('h3');
+			newH3.textContent = myLibrary[i]["pages"]+" pages";
+			
+			if (myLibrary[i].read === true && myLibrary[i].read != null) {
+				newDiv.classList.add('card-read')
+			}
+			
+			newDiv.appendChild(newCloseButton);
+			newDiv.appendChild(newReadButton);
+			newDiv.appendChild(newImg);
+			newDiv.appendChild(newH1);
+			newDiv.appendChild(newH2);
+			newDiv.appendChild(newH3);
+			cardContainer.appendChild(newDiv);
 		}
-		
-		newDiv.appendChild(newCloseButton);
-		newDiv.appendChild(newReadButton);
-		newDiv.appendChild(newImg);
-		newDiv.appendChild(newH1);
-		newDiv.appendChild(newH2);
-		newDiv.appendChild(newH3);
-		cardContainer.appendChild(newDiv);
 	}
 }
 
@@ -153,36 +200,37 @@ function clearInput() {
 	readYes.checked = false
 }
 
-const container = document.querySelector(".container");
-const modalOverlay = document.querySelector('.modal-overlay');
-const modalContainer = document.querySelector('.modal-container');
-const modalContent = document.querySelector('.modal-content');
-const modalContentError = document.querySelector('.modal-content-error')
-const modalContentRead = document.querySelector('.modal-content-read')
-const cardContainer = document.querySelector('.card-container')
-
-const addButton = document.querySelector('.add-button');
-const addExampleButton = document.querySelector('.add-example-button');
-const addBookButton = document.querySelector('.add-book-button');
-const closeButton = document.querySelector('.close-button');
-
-const inputTitle = document.querySelector('#inputTitle');
-const inputAuthor = document.querySelector('#inputAuthor');
-const inputPages = document.querySelector('#inputPages');
-const readNo = document.querySelector('#readNo');
-const readYes = document.querySelector('#readYes');
-
-function showModal() {
-	modalOverlay.classList.remove('closed')
-	modalContainer.classList.remove('closed')
+function storageAvailable(type) {
+	var storage;
+	if (localStorage.length !== 0) {
+		try {
+			storage = window[type];
+			var x = '__storage_test__';
+			storage.setItem(x, x);
+			storage.removeItem(x);
+			return true;
+		}
+		catch(e) {
+			return e instanceof DOMException && (
+				// everything except Firefox
+				e.code === 22 ||
+				// Firefox
+				e.code === 1014 ||
+				// test name field too, because code might not be present
+				// everything except Firefox
+				e.name === 'QuotaExceededError' ||
+				// Firefox
+				e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+				// acknowledge QuotaExceededError only if there's something already stored
+				(storage && storage.length !== 0);
+		}
+	}
 }
 
-function hideModal() {
-	modalOverlay.classList.add('closed')
-	modalContainer.classList.add('closed')
-}
-
-addButton.addEventListener('click', showModal)
-closeButton.addEventListener('click',hideModal)
-addBookButton.addEventListener('click',evalModal)
-addExampleButton.addEventListener('click',addExampleBook)
+if (storageAvailable('localStorage')) {
+	myLibrary = JSON.parse(localStorage.getItem("myStoredLibrary"));
+	updateBooks();
+  }
+  else {
+	myLibrary = [];
+  }
